@@ -6,7 +6,7 @@
     },
     {
       "src": "/bot{TOKEN}",
-      "dest": "/"
+      "dest": "trading_middleware/__init__.py""
     }
   ]
 }
