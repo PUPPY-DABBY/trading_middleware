@@ -1,8 +1,12 @@
 {
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "trading_middleware/__init__.py"
+      "src": "/",
+      "dest": "/"
+    },
+    {
+      "src": "/bot{TOKEN}",
+      "dest": "/"
     }
   ]
 }
