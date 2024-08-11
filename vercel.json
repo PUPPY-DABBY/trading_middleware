@@ -1,10 +1,4 @@
 {
-  "builds": [
-    {
-      "src": "trading_middleware/__init__.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/(.*)",
