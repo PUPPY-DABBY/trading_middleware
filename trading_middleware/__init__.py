@@ -8,7 +8,6 @@ import ta
 from binance.um_futures import UMFutures
 from binance.error import ClientError
 
-from aiogram.utils.webhook import SetWebhook
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
