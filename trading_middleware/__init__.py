@@ -104,7 +104,11 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
+    try:
+        await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
+        logging.info(f"Start command handled for user: {message.from_user.id}")
+    except Exception as e:
+        logging.error(f"Error in start command handler: {e}")
 
 async def analyze_operation():
     global stop_signal_handler
@@ -168,13 +172,17 @@ app = FastAPI(lifespan=lifespan)
 
 @app.post(f"/bot{TOKEN}")
 async def bot_webhook(request: Request):
-    update = await request.json()
-    Dispatcher.process_update(dp, update)
-    return {"status": "ok"}
+    try:
+        update = await request.json()
+        await dp.process_update(update)
+        return {"status": "ok"}
+    except Exception as e:
+        logging.error(f"Error processing update: {e}")
+        return {"status": "error", "message": str(e)}
 
 @app.get('/')
 def hello_world():
-    return "Hello,World"
+    return "Hello, World"
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
