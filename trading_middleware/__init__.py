@@ -145,13 +145,13 @@ async def stop_command_handler(message: Message) -> None:
         await message.answer("Signal handler is not running.")
 
 async def on_startup():
+    webhook_url = f"https://trading-middleware-theta.vercel.app/bot{TOKEN}"
+    await bot.set_webhook(webhook_url)
     await bot.set_my_commands([
         BotCommand(command="start", description="Starts the bot"),
         BotCommand(command="analyze", description="Start analyzing signals"),
         BotCommand(command="stop", description="Stops the bot")
     ])
-    # Start the polling process
-    asyncio.create_task(dp.start_polling(bot))
 
 # Set up FastAPI with the lifespan context
 @asynccontextmanager
@@ -172,11 +172,6 @@ async def bot_webhook(request: Request):
     update = await request.json()
     Dispatcher.process_update(dp, update)
     return {"status": "ok"}
-
-async def on_startup():
-    webhook_url = f"https://trading-middleware-theta.vercel.app/bot{TOKEN}"
-    await bot.set_webhook(webhook_url)
-    await bot.set_my_commands([...])
 
 @app.get('/')
 def hello_world():
