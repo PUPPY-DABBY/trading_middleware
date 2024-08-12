@@ -8,6 +8,7 @@ import ta
 from binance.um_futures import UMFutures
 from binance.error import ClientError
 
+from aiogram.utils.webhook import SetWebhook
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -171,6 +172,11 @@ async def bot_webhook(request: Request):
     update = await request.json()
     Dispatcher.process_update(dp, update)
     return {"status": "ok"}
+
+async def on_startup():
+    webhook_url = f"https://trading-middleware-theta.vercel.app/bot{TOKEN}"
+    await bot.set_webhook(webhook_url)
+    await bot.set_my_commands([...])
 
 @app.get('/')
 def hello_world():
