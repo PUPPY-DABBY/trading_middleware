@@ -172,6 +172,10 @@ async def bot_webhook(request: Request):
     Dispatcher.process_update(dp, update)
     return {"status": "ok"}
 
+@app.get('/')
+def hello_world():
+    return "Hello,World"
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     uvicorn.run(app, host="0.0.0.0", port=8000)
