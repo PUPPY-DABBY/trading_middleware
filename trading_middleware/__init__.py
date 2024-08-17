@@ -144,7 +144,7 @@ async def stop_command_handler(message: Message) -> None:
         await message.answer("Signal handler is not running.")
 
 async def on_startup():
-    webhook_url = f"https://your-domain.com/bot{TOKEN}"
+    webhook_url = f"https://trading-middleware-theta.vercel.app/bot{TOKEN}"
     await bot.set_webhook(webhook_url)
     await bot.set_my_commands([
         BotCommand(command="start", description="Starts the bot"),
